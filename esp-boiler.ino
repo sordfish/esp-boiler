@@ -1,11 +1,9 @@
-/*
-* IRremote: IRsendDemo - demonstrates sending IR codes with IRsend
-* An IR LED/radio transmitter must be connected to Arduino PWM pin 3.
-* Version 0.1 July, 2009
-* Copyright 2009 Ken Shirriff
-* http://arcfn.com
-*/
- 
+#include <ESP8266WiFi.h>          //ESP8266 Core WiFi Library (you most likely already have this in your sketch)
+
+#include <DNSServer.h>            //Local DNS Server used for redirecting all requests to the configuration portal
+#include <ESP8266WebServer.h>     //Local WebServer used to serve the configuration portal
+#include <WiFiManager.h>          //https://github.com/tzapu/WiFiManager WiFi Configuration Magic
+
 #include <IRremote.h>
  
 IRsend irsend;
@@ -21,12 +19,15 @@ const unsigned int heating_code_second[33] =
 {1,0,0,0,1,0,0,0,1,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1};
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is completevoid 
-setup() {
-    Serial.begin(9600);
+
+
+void setup() {
+  WiFiManager wifiManager;
+  wifiManager.autoConnect("ESP-BOILER");
 }
- 
-void loop() {// altered the code just to send/test my raw code
- unsigned int input_num = inputString.toInt();
+
+void loop() {
+   unsigned int input_num = inputString.toInt();
  inputString = "";
  stringComplete = false;
  unsigned int i=0;
@@ -71,4 +72,5 @@ void loop() {// altered the code just to send/test my raw code
  }
  
 //delay(2000);
-}//close main loop
+
+}
