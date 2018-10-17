@@ -7,7 +7,7 @@
 #include <ESP8266WebServer.h>     //Local WebServer used to serve the configuration portal
 #include <WiFiManager.h>     
  
-IRsend irsend(4);
+IRsend irsend(7);
  
 // just added my own array for the raw signal
 uint16_t digitalOne[4] = {0,900,325,0};
